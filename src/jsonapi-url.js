@@ -1,11 +1,11 @@
 import isPlainObject from 'is-plain-object'
 
-const _encode = value => Array.isArray(value) && !value.length ? '[]' : encodeURI(value)
+const _encode = value => Array.isArray(value) && !value.length ? '%5B%5D' : encodeURI(value)
 
 const encodeParam = (value, key) => {
     if (isPlainObject(value)) {
         return Object.keys(value).reduce((memo, _key) => {
-            return `${memo}${key}[${_key}]=${_encode(value[_key])}&`
+            return `${memo}${key}%5B${_key}%5D=${_encode(value[_key])}&`
         }, '')
     } else {
         return `${key}=${_encode(value)}&`
